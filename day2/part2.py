@@ -16,7 +16,7 @@ def naive_find_common(data):
                 return ''.join(common)
 
 if __name__ == '__main__':
-    with open("2_input") as file_:
+    with open("input") as file_:
         data = file_.readlines()
     common = naive_find_common(data)
     print("Common Letters:", common)

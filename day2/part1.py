@@ -13,7 +13,7 @@ def check(line):
 
 
 if __name__ == '__main__':
-    with open("2_input") as file_:
+    with open("input") as file_:
         data = file_.readlines()
     data = [check(line) for line in data]
     twos = 0
