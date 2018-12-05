@@ -1,8 +1,5 @@
 """Solution for Advent of Code 2018 Day 1.
 
-NOTE(eugenhotaj): part 1 requires no code. Simply copy and paste the input into
-a python interpreter with 0 prepended, e.g.: 0 + <input> = answer.
-
 --- Day 1: Chronal Calibration ---
 "We've detected some temporal anomalies," one of Santa's Elves at the Temporal
 Anomaly Research and Detection Instrument Station tells you. She sounded pretty
@@ -144,6 +141,10 @@ data = [
 ]
 
 if __name__ == '__main__':
+  # Part 1.
+  # NOTE(eugenhotaj): part 1 requires no code. Simply copy and paste the input
+  # into a python interpreter with 0 prepended, e.g.: 0 + <input> = answer.
+
   # Part 2.
   seen = set()
   i = 0
