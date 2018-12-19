@@ -108,6 +108,6 @@ if __name__ == '__main__':
   print('Max score: ', play(num_players, last_marble))
 
   # Part 2.
-  # TODO(eugenhotaj): WARNING! Takes ~15-30 minute to run. I suspect there might
+  # TODO(eugenhotaj): WARNING! Takes a few hours to run. I suspect there might
   # be a faster (or even closed form) solution to this problem.
   print('Max score (x100): ', play(num_players, last_marble * 100))
