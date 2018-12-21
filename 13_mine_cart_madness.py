@@ -259,73 +259,74 @@ CORNER = {
 
 
 class Minecart(object):
-    def __init__(self, row, col, direction, next_rotation):
-        self._direction = direction
-        self._next_rotation = next_rotation
-        self.pos = np.array((row, col))
-        self.alive = True
 
-    @property
-    def vel(self):
-        return DIRECTION_TO_VELOCITY[self._direction]
+  def __init__(self, row, col, direction, next_rotation):
+    self._direction = direction
+    self._next_rotation = next_rotation
+    self.pos = np.array((row, col))
+    self.alive = True
 
-    def rotate(self):
-        self._direction = ROTATE[self._direction][self._next_rotation]
-        self._next_rotation = NEXT_ROTATION[self._next_rotation]
+  @property
+  def vel(self):
+    return DIRECTION_TO_VELOCITY[self._direction]
 
-    def corner(self, corner):
-        self._direction = CORNER[self._direction][corner]
+  def rotate(self):
+    self._direction = ROTATE[self._direction][self._next_rotation]
+    self._next_rotation = NEXT_ROTATION[self._next_rotation]
+
+  def corner(self, corner):
+    self._direction = CORNER[self._direction][corner]
 
 
 def parse_minecarts(tracks, direction, under):
-    locs = np.where(tracks == direction)
-    minecarts = [Minecart(row, col, direction, 'l') for row, col in zip(*locs)]
-    tracks[locs] = under
-    return minecarts
+  locs = np.where(tracks == direction)
+  minecarts = [Minecart(row, col, direction, 'l') for row, col in zip(*locs)]
+  tracks[locs] = under
+  return minecarts
 
 
 def tick(tracks, minecarts):
-    minecarts = sorted(minecarts, key=lambda minecart: tuple(minecart.pos))
-    collisions = []
-    for i, minecart in enumerate(minecarts):
-        if not minecart.alive:
-            continue
-        track = tracks[minecart.pos[0], minecart.pos[1]]
-        if track == '+':
-            minecart.rotate()
-        elif track == '/' or track == '\\':
-            minecart.corner(track)
-        minecart.pos += minecart.vel
-        for j, other in enumerate(minecarts):
-            if i != j and np.all(minecart.pos == other.pos):
-                collisions.append(minecart.pos)
-                minecart.alive = False
-                other.alive = False
-    return collisions
+  minecarts = sorted(minecarts, key=lambda minecart: tuple(minecart.pos))
+  collisions = []
+  for i, minecart in enumerate(minecarts):
+    if not minecart.alive:
+      continue
+    track = tracks[minecart.pos[0], minecart.pos[1]]
+    if track == '+':
+      minecart.rotate()
+    elif track == '/' or track == '\\':
+      minecart.corner(track)
+    minecart.pos += minecart.vel
+    for j, other in enumerate(minecarts):
+      if i != j and np.all(minecart.pos == other.pos):
+        collisions.append(minecart.pos)
+        minecart.alive = False
+        other.alive = False
+  return collisions
 
 
 if __name__ == '__main__':
-    with open('input/13') as file_:
-        lines = file_.readlines()
-    tracks = np.array([list(line)[:-1] for line in lines])
-    initial_minecarts = []
-    initial_minecarts = parse_minecarts(tracks, '>', '-')
-    initial_minecarts += parse_minecarts(tracks, '^', '|')
-    initial_minecarts += parse_minecarts(tracks, '<', '-')
-    initial_minecarts += parse_minecarts(tracks, 'v', '|')
+  with open('input/13') as file_:
+    lines = file_.readlines()
+  tracks = np.array([list(line)[:-1] for line in lines])
+  initial_minecarts = parse_minecarts(tracks, '>', '-')
+  initial_minecarts += parse_minecarts(tracks, '^', '|')
+  initial_minecarts += parse_minecarts(tracks, '<', '-')
+  initial_minecarts += parse_minecarts(tracks, 'v', '|')
 
-    # Part 1.
-    minecarts = copy.deepcopy(initial_minecarts)
-    collisions = []
-    while not collisions:
-        collisions = tick(tracks, minecarts)
-    collision = collisions[0]
-    print("First collision at:", (collision[1], collision[0]))
+  # Part 1.
+  minecarts = copy.deepcopy(initial_minecarts)
+  collisions = []
+  while not collisions:
+    collisions = tick(tracks, minecarts)
+  collision = collisions[0]
+  print('First collision at:', (collision[1], collision[0]))
 
-    # Part 2.
-    minecarts = copy.deepcopy(initial_minecarts)
-    while len(minecarts) > 1:
-        tick(tracks, minecarts)
-        minecarts = [m for m in minecarts if m.alive]
-    survivor = minecarts[0]
-    print("Last minecart at:", (survivor.pos[1], survivor.pos[0]))
+  # Part 2.
+  minecarts = copy.deepcopy(initial_minecarts)
+  while len(minecarts) > 1:
+    tick(tracks, minecarts)
+    minecarts = [m for m in minecarts if m.alive]
+  survivor = minecarts[0]
+  print('Last minecart at:', (survivor.pos[1], survivor.pos[0]))
+
