@@ -102,7 +102,7 @@ def process_timestamp(string_timestamp):
 
 if __name__ == '__main__':
   guards = collections.defaultdict(lambda: np.zeros(60))
-  with open('input/4') as file_:
+  with open('input/04') as file_:
     lines = file_.readlines()
   lines = sorted(lines)
 

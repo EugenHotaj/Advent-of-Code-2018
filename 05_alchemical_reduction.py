@@ -78,7 +78,7 @@ def react(polymer):
 
 
 if __name__ == '__main__':
-  with open('input/5') as file_:
+  with open('input/05') as file_:
     data = file_.read().strip()
 
   # Part 1.

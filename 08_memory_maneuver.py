@@ -105,7 +105,7 @@ def dfs(array, meta_as_index=False):
 
 
 if __name__ == '__main__':
-  with open('input/8') as file_:
+  with open('input/08') as file_:
     data = [int(datum) for datum in file_.read().strip().split()]
 
   # Part 1.

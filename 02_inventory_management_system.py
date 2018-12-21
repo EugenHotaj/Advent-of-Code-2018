@@ -96,7 +96,7 @@ def naive_find_common(data):
 
 
 if __name__ == "__main__":
-  with open("input/2") as file_:
+  with open("input/02") as file_:
     data = file_.read().strip().split("\n")
 
   # Part 1.

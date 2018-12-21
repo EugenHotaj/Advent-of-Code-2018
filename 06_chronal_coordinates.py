@@ -115,7 +115,7 @@ from scipy import spatial
 from sklearn.metrics import pairwise
 
 if __name__ == '__main__':
-  with open('input/6') as file_:
+  with open('input/06') as file_:
     lines = file_.read().strip().split('\n')
     points = [line.split(', ') for line in lines]
     points = [[int(point[0]), int(point[1])] for point in points]

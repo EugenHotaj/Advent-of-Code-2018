@@ -72,7 +72,7 @@ import numpy as np
 if __name__ == '__main__':
   cloth = np.zeros((1000, 1000))
   claims = []
-  with open('input/3') as file_:
+  with open('input/03') as file_:
     lines = file_.readlines()
     for line in lines:
       _, _, loc, size = line.split()

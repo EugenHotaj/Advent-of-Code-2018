@@ -173,7 +173,7 @@ def _tick(scheduled):
 
 
 if __name__ == '__main__':
-  with open('input/7') as file_:
+  with open('input/07') as file_:
     lines = file_.readlines()
 
   # Build tree and reverse tree.
