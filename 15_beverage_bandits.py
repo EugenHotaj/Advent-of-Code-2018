@@ -518,7 +518,6 @@ def _shortest_path(grid):
 
 
 def _create_graph(grid):
-  # Create graph.
   rows, cols = grid.shape
   graph = np.zeros((grid.size, grid.size))
   it = np.nditer(grid, flags=['multi_index'])
@@ -580,11 +579,10 @@ if __name__ == '__main__':
   print('Battle outcome:', outcome)
 
   # Part 2.
-  # NOTE(ehotaj): takes ~30 minutes to run.
+  # NOTE(ehotaj): takes ~30-45 min to run due to shortest path computations.
   initial_elves = grid[grid == 'E'].size
   elf_power = 4
   while True:
-    print(elf_power)
     rounds, remaining = _simulate(np.copy(grid), elf_power)
     if remaining[0].kind != 'E' or len(remaining) < initial_elves:
       elf_power += 1
