@@ -462,7 +462,7 @@ class Actor(object):
       array.append((row, col))
 
   def tick(self, actors, dists):
-    """Simulates self for one tick. Returns True if there are no enemies."""
+    """Moves then attacks. Returns `True` if there are no enemies."""
     if self.hp <= 0:
       return False
     enemies = [actor for actor in actors if actor.kind != self.kind]
@@ -538,7 +538,7 @@ def _connect(graph, u, grid, rows, cols, row, col):
   graph[u, v] = int(grid[row, col] == '.')
 
 
-def _simulate(grid, elf_ap=3):
+def simulate(grid, elf_ap=3):
   actors = []
   for row, col in zip(*np.where(grid == 'E')):
     actors.append(Actor('E', row, col, elf_ap, *grid.shape))
@@ -574,7 +574,7 @@ if __name__ == '__main__':
   grid = np.array([list(line[:-1]) for line in lines])
 
   # Part 1.
-  rounds, remaining = _simulate(np.copy(grid))
+  rounds, remaining = simulate(np.copy(grid))
   outcome = rounds * sum([actor.hp for actor in remaining])
   print('Battle outcome:', outcome)
 
@@ -583,7 +583,7 @@ if __name__ == '__main__':
   initial_elves = grid[grid == 'E'].size
   elf_power = 4
   while True:
-    rounds, remaining = _simulate(np.copy(grid), elf_power)
+    rounds, remaining = simulate(np.copy(grid), elf_power)
     if remaining[0].kind != 'E' or len(remaining) < initial_elves:
       elf_power += 1
       continue
